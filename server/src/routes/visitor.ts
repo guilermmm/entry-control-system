@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { z } from 'zod'
 import prisma from '../prisma'
+import { authenticateUser } from '../util/auth'
 import { idParam } from '../util/util'
 
 const visitorRouter = Router()
@@ -62,7 +63,7 @@ const createParams = z.object({
   photo: z.string(),
 })
 
-visitorRouter.post('/', async (req, res) => {
+visitorRouter.post('/', authenticateUser, async (req, res) => {
   try {
     const params = createParams.parse(req.body)
 
@@ -95,7 +96,7 @@ const updateParams = z.object({
   photo: z.string().optional(),
 })
 
-visitorRouter.put('/:id', async (req, res) => {
+visitorRouter.put('/:id', authenticateUser, async (req, res) => {
   try {
     const { id } = idParam.parse(req.params)
     const params = updateParams.parse(req.body)
