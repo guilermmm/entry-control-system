@@ -8,7 +8,7 @@ Store entries of visitors in a determined unit of an institution, each unit cont
 
 - Each unit store only their visits, but share the visitors data.
 
-- Visit is composed by a visitor that can be registered or fetched from the database by CPF.
+- Visit is composed by a visitor that can be registered or fetched from the database by CPF, the unit and sector which they're visiting and the time of finalization.
 
 - Employees have 3 levels of permission:
   - Admin: Register units, sectors and employees in general, including other admins.
@@ -17,18 +17,26 @@ Store entries of visitors in a determined unit of an institution, each unit cont
 
 ## Technologies
 
-- [ExpressJS](https://expressjs.com/)
-- [ReactJS](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [ExpressJS](https://expressjs.com/)
+- [Vite](https://vitejs.dev/)
+- [ReactJS](https://reactjs.org/)
+- [TailwindCSS](https://tailwindcss.com/)
 
 ## TODOS
 
-- [x] Back-End
+- [x] Back-End initialized
   - [x] Database
   - [x] CRUD of all tables
-  - [x] User Auth with password encryption
-  - [ ] Deploy in production
-- [ ] Front-End
-  - [ ] Login screen and user auth for the rest
+  - [x] User auth with password encryption
+  - [x] Deploy in production
+- [x] Front-End
+  - [x] User auth
+  - [ ] Finish axios fetches
+  - [ ] Login screen
+  - [ ] Home screen
   - [ ] User permission level access to each area
+    - [ ] Admin area screen
+    - [ ] Employee area screen
+    - [ ] Attendant area screen
   - TBD

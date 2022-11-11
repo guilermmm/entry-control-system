@@ -64,50 +64,6 @@ userRouter.get('/:id', async (req, res) => {
   }
 })
 
-const createParams = z.object({
-  name: z.string(),
-  register: z.string(),
-  password: z.string(),
-  sectorId: z.number().int().optional(),
-  unitId: z.number().int().optional(),
-  permitLevel: z
-    .string()
-    .refine(
-      value => Object.keys(PermitLevel).includes(value),
-      'Invalid permit level',
-    )
-    .transform(value => value as PermitLevel),
-})
-
-userRouter.post('/', authenticateUser, async (req, res) => {
-  try {
-    const { name, register, sectorId, unitId, permitLevel, password } =
-      createParams.parse(req.body)
-
-    const hashedPassword = await hashPassword(password)
-
-    const user = await prisma.user.create({
-      data: {
-        name,
-        register,
-        sectorId,
-        unitId,
-        permitLevel,
-        password: hashedPassword,
-      },
-    })
-
-    res.status(201).json(user)
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      res.status(400).json(error)
-    } else {
-      console.log(error)
-      res.sendStatus(500)
-    }
-  }
-})
-
 const updateParams = z.object({
   name: z.string().optional(),
   register: z.string().optional(),
