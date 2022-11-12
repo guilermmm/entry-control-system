@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../components/auth_context'
+import NavBar from '../components/navbar'
 import { login } from '../services/auth'
 
 const Login = () => {
@@ -26,26 +27,39 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <h1>Login page</h1>
-      <form>
-        <label htmlFor="register">Register</label>
-        <input
-          type="text"
-          id="register"
-          value={register}
-          onChange={e => setRegister(e.target.value)}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-        <button onClick={handleSubmit}>Login</button>
-      </form>
-    </div>
+    <>
+      <div className="h-screen-1/10 flex flex-col justify-center text-center items-center space-y-10 my-auto">
+        <div className="bg-secondary-default rounded p-10 shadow shadow-black">
+          <div className="flex justify-center">
+            <h1 className="text-2xl font-bold border-b-4 border-primary-default w-fit">
+              Login
+            </h1>
+          </div>
+          <form className="flex flex-col w-64 text-2xl items-center">
+            <input
+              type="text"
+              placeholder="Registro"
+              className="my-4 bg-transparent text-center border-b-4 border-primary-default focus:outline-none focus:border-primary-default focus:placeholder:text-transparent"
+              value={register}
+              onChange={event => setRegister(event.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Senha"
+              className="mb-6 bg-transparent text-center border-b-4 border-primary-default focus:outline-none focus:border-primary-default focus:placeholder:text-transparent"
+              value={password}
+              onChange={event => setPassword(event.target.value)}
+            />
+            <button
+              className="bg-primary-default rounded-md mt-2 mb-4 py-2 w-56 text-white"
+              onClick={handleSubmit}
+            >
+              Entrar
+            </button>
+          </form>
+        </div>
+      </div>
+    </>
   )
 }
 

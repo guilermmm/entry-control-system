@@ -90,11 +90,35 @@ visitationRouter.post('/', authenticateUser, async (req, res) => {
 const updateParams = z.object({
   sectorId: z.number().int().optional(),
   unitId: z.number().int().optional(),
-  finalized: z.boolean().optional(),
   userId: z.number().int().optional(),
 })
 
 visitationRouter.put('/:id', authenticateUser, async (req, res) => {
+  try {
+    const { id } = idParam.parse(req.params)
+    const params = updateParams.parse(req.body)
+
+    const visit = await prisma.visit.update({
+      where: { id },
+      data: params,
+    })
+
+    res.status(200).json(visit)
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      res.status(400).json(error)
+    } else {
+      console.log(error)
+      res.sendStatus(500)
+    }
+  }
+})
+
+const finalizeParams = z.object({
+  finalized: z.boolean(),
+})
+
+visitationRouter.patch('/:id', authenticateUser, async (req, res) => {
   try {
     const { id } = idParam.parse(req.params)
     const params = updateParams.parse(req.body)
