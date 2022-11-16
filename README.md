@@ -40,4 +40,5 @@ Store entries of visitors in a determined unit of an institution, each unit cont
     - [x] Admin area screen
     - [x] Attendant area screen
     - [x] Employee area screen
-  - [ ] Finalized visits history on attendant
+  - [x] Visits history on attendant
+  - [ ] Polish some functionalities?

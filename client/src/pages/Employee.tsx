@@ -57,7 +57,7 @@ const Employee = () => {
         finalized: true,
       })
       alert('Visita finalizada com sucesso!')
-      window.location.reload()
+      navigate('/')
     } catch (error) {
       console.log(error)
     }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { register } from '../services/auth'
 import { Sector } from '../services/sector'
 import { Unit } from '../services/unit'
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const EmployeeModal = ({ sectors, units, onClose }: Props) => {
+  const navigate = useNavigate()
+
   const [employeeName, setEmployeeName] = useState('')
   const [employeeRegister, setEmployeeRegister] = useState('')
   const [employeePassword, setEmployeePassword] = useState('')
@@ -48,7 +51,7 @@ const EmployeeModal = ({ sectors, units, onClose }: Props) => {
         permitLevel: employeePermitLevel,
       })
       alert('Funcionário criado com sucesso!')
-      window.location.reload()
+      navigate('/')
     } catch (error) {
       console.error(error)
     }

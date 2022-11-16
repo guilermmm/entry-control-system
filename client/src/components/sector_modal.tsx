@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { createSector } from '../services/sector'
 import { Unit } from '../services/unit'
 import Modal from './modal'
@@ -9,6 +10,7 @@ interface Props {
 }
 
 const SectorModal = ({ units, onClose }: Props) => {
+  const navigate = useNavigate()
   const [sectorName, setSectorName] = useState('')
   const [sectorUnitId, setSectorUnitId] = useState(1)
 
@@ -21,7 +23,7 @@ const SectorModal = ({ units, onClose }: Props) => {
         unitId: sectorUnitId,
       })
       alert('Setor criado com sucesso!')
-      window.location.reload()
+      navigate('/')
     } catch (error) {
       console.error(error)
     }

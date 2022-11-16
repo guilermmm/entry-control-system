@@ -71,11 +71,11 @@ const Attendant = () => {
           </button>
         </div>
         <h1 className="text-2xl font-bold border-b-2 border-primary-default">
-          Visitas ativas da unidade - {unit?.name}
+          Visitas da unidade - {unit?.name}
         </h1>
         <div className="flex space-x-10 flex-wrap pt-4">
           <div className="border-primary-default border-2 rounded p-2 bg-gray-200 min-w-1/6 mb-4">
-            <h2 className="font-bold">Sem setor:</h2>
+            <h2 className="font-bold">Ativas sem setor:</h2>
             <table>
               <thead>
                 <tr>
@@ -113,6 +113,7 @@ const Attendant = () => {
                     <th className="pr-4">ID</th>
                     <th className="pr-4">Visitante</th>
                     <th className="pr-4">Funcionário</th>
+                    <th className="pr-4">Finalizado</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -134,6 +135,13 @@ const Attendant = () => {
                               employee => employee.id === visit.userId,
                             )[0]?.name
                           }
+                        </td>
+                        <td className="text-center">
+                          {visit.finalized ? (
+                            <span className="text-green-500">Sim</span>
+                          ) : (
+                            <span className="text-red-500">Não</span>
+                          )}
                         </td>
                       </tr>
                     ))}

@@ -7,6 +7,7 @@ import { User } from '../services/user'
 import { validateCpf } from '../util/functions'
 import { getVisitors } from '../services/visitor'
 import { createVisit } from '../services/visit'
+import { useNavigate } from 'react-router-dom'
 
 interface Props {
   onClose: () => void
@@ -16,6 +17,8 @@ interface Props {
 }
 
 const VisitModal = ({ onClose, unit, sectors, employees }: Props) => {
+  const navigate = useNavigate()
+
   const [visitorId, setVisitorId] = useState(0)
   const [visitorCpf, setVisitorCpf] = useState('')
   const [visitorName, setVisitorName] = useState('')
@@ -60,7 +63,7 @@ const VisitModal = ({ onClose, unit, sectors, employees }: Props) => {
         unitId: visitUnitId,
       })
       alert('Visita criada com sucesso!')
-      window.location.reload()
+      navigate('/')
     } catch (error) {
       console.error(error)
     }

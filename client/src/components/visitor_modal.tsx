@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { createVisitor } from '../services/visitor'
 import { validateCpf, validatePhone, validateRg } from '../util/functions'
 import Modal from './modal'
 
 const VisitorModal = ({ onClose }: { onClose: () => void }) => {
+  const navigate = useNavigate()
+
   const [visitorCpf, setVisitorCpf] = useState('')
   const [visitorName, setVisitorName] = useState('')
   const [visitorRg, setVisitorRg] = useState('')
@@ -26,7 +29,7 @@ const VisitorModal = ({ onClose }: { onClose: () => void }) => {
           photo: visitorPhoto,
         })
         alert('Visitante criado com sucesso!')
-        window.location.reload()
+        navigate('/')
       } else {
         alert('CPF, RG ou telefone inválido')
       }
