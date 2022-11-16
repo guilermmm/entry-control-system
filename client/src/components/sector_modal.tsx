@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { createSector } from '../services/sector'
 import { Unit } from '../services/unit'
 import Modal from './modal'
@@ -12,15 +12,16 @@ const SectorModal = ({ units, onClose }: Props) => {
   const [sectorName, setSectorName] = useState('')
   const [sectorUnitId, setSectorUnitId] = useState(1)
 
-  const handleCreateSector = async () => {
+  const handleCreateSector = async (event: React.MouseEvent) => {
+    event.preventDefault()
     try {
       console.log(`name: ${sectorName}, unitId: ${sectorUnitId}`)
       const sector = await createSector({
         name: sectorName,
         unitId: sectorUnitId,
       })
-      console.log('Unidade criada com sucesso!')
-      onClose()
+      alert('Setor criado com sucesso!')
+      window.location.reload()
     } catch (error) {
       console.error(error)
     }

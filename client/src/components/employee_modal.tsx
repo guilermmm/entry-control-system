@@ -18,20 +18,28 @@ const EmployeeModal = ({ sectors, units, onClose }: Props) => {
   const [employeeSectorId, setEmployeeSectorId] = useState(0)
   const [employeeUnitId, setEmployeeUnitId] = useState(0)
   const [employeePermitLevel, setEmployeePermitLevel] = useState('')
-  const [admin, setAdmin] = useState(false)
+  const [unitField, setUnitField] = useState(false)
+  const [sectorField, setSectorField] = useState(false)
 
   useEffect(() => {
-    if (employeePermitLevel === PermitLevel.ADMIN) {
-      setAdmin(true)
+    if (
+      employeePermitLevel === PermitLevel.ADMIN ||
+      employeePermitLevel === ''
+    ) {
+      setUnitField(false)
+      setSectorField(false)
     } else {
-      setAdmin(false)
+      setUnitField(true)
     }
+    employeePermitLevel === PermitLevel.EMPLOYEE
+      ? setSectorField(true)
+      : setSectorField(false)
   }, [employeePermitLevel])
 
   const handleCreateEmployee = async (e: React.MouseEvent) => {
     e.preventDefault()
     try {
-      const employee = await register({
+      await register({
         name: employeeName,
         register: employeeRegister,
         password: employeePassword,
@@ -39,7 +47,8 @@ const EmployeeModal = ({ sectors, units, onClose }: Props) => {
         unitId: employeeUnitId === 0 ? undefined : employeeUnitId,
         permitLevel: employeePermitLevel,
       })
-      console.log(employee)
+      alert('Funcionário criado com sucesso!')
+      window.location.reload()
     } catch (error) {
       console.error(error)
     }
@@ -86,7 +95,7 @@ const EmployeeModal = ({ sectors, units, onClose }: Props) => {
           <option value={PermitLevel.EMPLOYEE}>Funcionário</option>
         </select>
 
-        {!admin && (
+        {unitField && (
           <select
             value={employeeUnitId}
             onChange={e => setEmployeeUnitId(Number(e.target.value))}
@@ -101,7 +110,7 @@ const EmployeeModal = ({ sectors, units, onClose }: Props) => {
           </select>
         )}
 
-        {!admin && (
+        {sectorField && (
           <select
             value={employeeSectorId}
             onChange={event => setEmployeeSectorId(Number(event.target.value))}

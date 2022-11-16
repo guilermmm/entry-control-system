@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { AuthProvider } from './components/auth_context'
-import AdminArea from './components/admin_area'
+import MainArea from './components/main_area'
 import Attendant from './pages/Attendant'
 import Employee from './pages/Employee'
 import Home from './pages/Home'

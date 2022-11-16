@@ -12,13 +12,14 @@ Store entries of visitors in a determined unit of an institution, each unit cont
 
 - Employees have 3 levels of permission:
   - Admin: Register units, sectors and employees in general, including other admins.
-  - Attendant: Register visitor and controls visits of your respective unit.
+  - Attendant: Register visitor and controls visits of your respective unit and access finalized visits history.
   - Employee: Can access the list of visitors in your respective sector and finalize the visit.
 
 ## Technologies
 
 - [TypeScript](https://www.typescriptlang.org/)
 - [ExpressJS](https://expressjs.com/)
+- [Prisma](https://www.prisma.io/)
 - [Vite](https://vitejs.dev/)
 - [ReactJS](https://reactjs.org/)
 - [TailwindCSS](https://tailwindcss.com/)
@@ -32,11 +33,11 @@ Store entries of visitors in a determined unit of an institution, each unit cont
   - [x] Deploy in production
 - [x] Front-End
   - [x] User auth
-  - [ ] Finish axios fetches
-  - [ ] Login screen
-  - [ ] Home screen
-  - [ ] User permission level access to each area
-    - [ ] Admin area screen
-    - [ ] Employee area screen
-    - [ ] Attendant area screen
-  - TBD
+  - [x] Finish axios fetches
+  - [x] Login screen
+  - [x] Home screen
+  - [x] User permission level access to each area
+    - [x] Admin area screen
+    - [x] Attendant area screen
+    - [x] Employee area screen
+  - [ ] Finalized visits history on attendant

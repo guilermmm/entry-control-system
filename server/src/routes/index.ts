@@ -13,6 +13,6 @@ appRouter.use('/user_auth', userAuthRouter)
 appRouter.use('/sector', sectorRouter)
 appRouter.use('/unit', unitRouter)
 appRouter.use('/visitation', visitationRouter)
-appRouter.use('/vititor', visitorRouter)
+appRouter.use('/visitor', visitorRouter)
 
 export default appRouter

@@ -63,8 +63,8 @@ model Visit {
   unitId    Int?
   sector    Sector?  @relation(fields: [sectorId], references: [id])
   sectorId  Int?
-  employee  User     @relation(fields: [userId], references: [id])
-  userId    Int
+  employee  User?    @relation(fields: [userId], references: [id])
+  userId    Int?
 
   @@map("Visitation")
 }

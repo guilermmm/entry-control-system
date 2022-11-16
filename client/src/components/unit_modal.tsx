@@ -1,15 +1,17 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { createUnit } from '../services/unit'
 import Modal from './modal'
 
 const UnitModal = ({ onClose }: { onClose: () => void }) => {
   const [unitName, setUnitName] = useState('')
 
-  const handleCreateUnit = async () => {
+  const handleCreateUnit = async (event: React.MouseEvent) => {
+    event.preventDefault()
     try {
-      const unit = await createUnit({ name: unitName })
-      console.log('Unidade criada com sucesso!')
-      onClose()
+      await createUnit({ name: unitName })
+
+      alert('Unidade criada com sucesso!')
+      window.location.reload()
     } catch (error) {
       console.error(error)
     }

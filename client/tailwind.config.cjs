@@ -5,6 +5,9 @@ module.exports = {
   content: ['./**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      minWidth: {
+        '1/6': '16.666667%',
+      },
       maxWidth: {
         '1/2': '50%',
       },

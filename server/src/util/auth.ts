@@ -40,23 +40,3 @@ export const authenticateUser = (
     res.sendStatus(401)
   }
 }
-
-export const authenticate = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
-    const token = req.headers.authorization?.split(' ')?.[1]
-
-    if (!token) return res.sendStatus(401)
-
-    const payload = verify(token, accessTokenSecret)
-
-    if (!payload) return res.sendStatus(401)
-
-    return next()
-  } catch (err) {
-    res.sendStatus(401)
-  }
-}

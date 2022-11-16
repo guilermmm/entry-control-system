@@ -65,7 +65,7 @@ const createParams = z.object({
   visitorId: z.number().int(),
   unitId: z.number().int().optional(),
   sectorId: z.number().int().optional(),
-  userId: z.number().int(),
+  userId: z.number().int().optional(),
 })
 
 visitationRouter.post('/', authenticateUser, async (req, res) => {
@@ -91,6 +91,7 @@ const updateParams = z.object({
   sectorId: z.number().int().optional(),
   unitId: z.number().int().optional(),
   userId: z.number().int().optional(),
+  finalized: z.boolean().optional(),
 })
 
 visitationRouter.put('/:id', authenticateUser, async (req, res) => {

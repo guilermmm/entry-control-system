@@ -7,6 +7,8 @@ export interface Visit {
   unitId?: number
   sectorId?: number
   userId: number
+  updatedAt: string
+  createdAt: string
 }
 
 interface SearchParams {
@@ -19,12 +21,12 @@ interface SearchParams {
 export const getVisits = async (
   params: SearchParams = {},
 ): Promise<Visit[]> => {
-  const response = await api.get('/visit', { params })
+  const response = await api.get('/visitation', { params })
   return response.data
 }
 
 export const getVisit = async (id: number): Promise<Visit> => {
-  const response = await api.get(`/visit/${id}`)
+  const response = await api.get(`/visitation/${id}`)
   return response.data
 }
 
@@ -32,11 +34,11 @@ interface CreateParams {
   visitorId: number
   unitId?: number
   sectorId?: number
-  userId: number
+  userId?: number
 }
 
 export const createVisit = async (params: CreateParams): Promise<Visit> => {
-  const response = await api.post('/visit', params)
+  const response = await api.post('/visitation', params)
   return response.data
 }
 
@@ -45,21 +47,17 @@ interface UpdateParams {
   unitId?: number
   sectorId?: number
   userId?: number
+  finalized?: boolean
 }
 
 export const updateVisit = async (
   id: number,
   params: UpdateParams,
 ): Promise<Visit> => {
-  const response = await api.put(`/visit/${id}`, params)
-  return response.data
-}
-
-export const finalizeVisit = async (id: number): Promise<Visit> => {
-  const response = await api.patch(`/visit/${id}`)
+  const response = await api.put(`/visitation/${id}`, params)
   return response.data
 }
 
 export const deleteVisit = async (id: number): Promise<void> => {
-  await api.delete(`/visit/${id}`)
+  await api.delete(`/visitation/${id}`)
 }

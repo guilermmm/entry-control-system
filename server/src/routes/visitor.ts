@@ -12,7 +12,7 @@ const searchParams = z.object({
 
 visitorRouter.get('/', async (req, res) => {
   try {
-    const params = searchParams.parse(req.body)
+    const params = searchParams.parse(req.query)
 
     const visitors = await prisma.visitor.findMany({
       where: {
@@ -76,9 +76,9 @@ visitorRouter.post('/', authenticateUser, async (req, res) => {
         photo: params.photo,
       },
     })
-
     res.status(201).json(visitor)
   } catch (err) {
+    console.log(err)
     if (err instanceof z.ZodError) {
       res.status(400).json({ error: err.message })
     } else {

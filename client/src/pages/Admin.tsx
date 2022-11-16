@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
-import AdminArea from '../components/admin_area'
+import MainArea from '../components/main_area'
 import { useAuth } from '../components/auth_context'
 import EmployeeModal from '../components/employee_modal'
 import SectorModal from '../components/sector_modal'
@@ -22,17 +22,15 @@ const Admin = () => {
 
   useEffect(() => {
     if (user) {
-      getUsers().then(user => {
-        const thisUser = user.find(user => user.id === user.id)
+      getUsers().then(users => {
+        const thisUser = users.find(userArr => userArr.id === user.id)
         if (thisUser?.permitLevel !== PermitLevel.ADMIN) {
           navigate('/')
         }
 
         setEmployees(
-          user.filter(user => user.permitLevel !== PermitLevel.ADMIN),
+          users.filter(user => user.permitLevel !== PermitLevel.ADMIN),
         )
-
-        console.log(employees)
       })
     }
     getUnits().then(units => setUnits(units))
@@ -44,7 +42,7 @@ const Admin = () => {
   }
 
   return (
-    <AdminArea>
+    <MainArea>
       <div className="w-full p-4">
         <div className="flex justify-center space-x-10">
           <button
@@ -69,10 +67,23 @@ const Admin = () => {
         <h1 className="text-2xl font-bold border-b-2 border-primary-default">
           Unidades:
         </h1>
-        <div className="flex space-x-10 flex-wrap">
+        <div className="flex space-x-10 flex-wrap pt-4">
           {units.map(unit => (
-            <div key={unit.id}>
+            <div
+              key={unit.id}
+              className="border-primary-default border-2 rounded p-2 bg-gray-200 mb-4"
+            >
               <h2 className="text-xl font-bold">{unit.name}:</h2>
+              <h3>Atendentes:</h3>
+              {employees
+                .filter(
+                  employee =>
+                    employee.unitId === unit.id &&
+                    employee.permitLevel === PermitLevel.ATTENDANT,
+                )
+                .map(employee => (
+                  <p key={employee.id}> - {employee.name}</p>
+                ))}
               <h3>Setores:</h3>
               {sectors
                 .filter(sector => sector.unitId === unit.id)
@@ -80,27 +91,26 @@ const Admin = () => {
                   <div key={sector.id}>
                     <h4 className="font-bold">{sector.name}</h4>
                     <h5>Funcionários:</h5>
-                    <table>
-                      <tbody>
-                        {employees
-                          .filter(employee => employee.sectorId === sector.id)
-                          .map(employee => (
-                            <tr key={employee.id}>
-                              <td className="pr-4">- {employee.name}</td>
-                              <td>
-                                {employee.permitLevel === PermitLevel.ATTENDANT
-                                  ? 'Atendente'
-                                  : 'Funcionário'}
-                              </td>
-                            </tr>
-                          ))}
-                      </tbody>
-                    </table>
+
+                    <div>
+                      {employees
+                        .filter(
+                          employee =>
+                            employee.sectorId === sector.id &&
+                            employee.permitLevel === PermitLevel.EMPLOYEE,
+                        )
+                        .map(employee => (
+                          <div key={employee.id}>
+                            <div className="pr-4">- {employee.name}</div>
+                          </div>
+                        ))}
+                    </div>
                   </div>
                 ))}
             </div>
           ))}
         </div>
+
         {unitModal && <UnitModal onClose={() => setUnitModal(false)} />}
 
         {sectorModal && (
@@ -115,7 +125,7 @@ const Admin = () => {
           />
         )}
       </div>
-    </AdminArea>
+    </MainArea>
   )
 }
 

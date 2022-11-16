@@ -22,7 +22,7 @@ const registerParams = z.object({
     .transform(value => value as PermitLevel),
 })
 
-userAuthRouter.post('/register', authenticateUser, async (req, res) => {
+userAuthRouter.post('/register', async (req, res) => {
   try {
     const { name, register, sectorId, unitId, permitLevel, password } =
       registerParams.parse(req.body)
