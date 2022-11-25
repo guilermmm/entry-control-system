@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { createSector } from '../services/sector'
 import { Unit } from '../services/unit'
+import { validateCharLimit } from '../util/functions'
 import Modal from './modal'
 
 interface Props {
@@ -17,13 +18,15 @@ const SectorModal = ({ units, onClose }: Props) => {
   const handleCreateSector = async (event: React.MouseEvent) => {
     event.preventDefault()
     try {
-      console.log(`name: ${sectorName}, unitId: ${sectorUnitId}`)
-      const sector = await createSector({
-        name: sectorName,
-        unitId: sectorUnitId,
-      })
-      alert('Setor criado com sucesso!')
-      navigate('/')
+      if (validateCharLimit(sectorName)) {
+        console.log(`name: ${sectorName}, unitId: ${sectorUnitId}`)
+        const sector = await createSector({
+          name: sectorName,
+          unitId: sectorUnitId,
+        })
+        alert('Setor criado com sucesso!')
+        navigate('/')
+      } else alert('Nome do setor inválido')
     } catch (error) {
       console.error(error)
     }

@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../components/auth_context'
-import NavBar from '../components/navbar'
 import { login } from '../services/auth'
 
 const Login = () => {
@@ -20,8 +19,10 @@ const Login = () => {
       if (user) {
         saveToken(user.token)
         navigate('/')
+        window.location.reload()
       }
     } catch (err) {
+      alert('Usuário ou senha inválidos')
       console.error(err)
     }
   }

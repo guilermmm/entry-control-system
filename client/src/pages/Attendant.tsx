@@ -73,8 +73,8 @@ const Attendant = () => {
         <h1 className="text-2xl font-bold border-b-2 border-primary-default">
           Visitas da unidade - {unit?.name}
         </h1>
-        <div className="flex space-x-10 flex-wrap pt-4">
-          <div className="border-primary-default border-2 rounded p-2 bg-gray-200 min-w-1/6 mb-4">
+        <div className="flex flex-wrap gap-10 pt-4 justify-center">
+          <div className="border-primary-default border-2 rounded p-2 bg-gray-200 w-1/3 mb-4">
             <h2 className="font-bold">Ativas sem setor:</h2>
             <table>
               <thead>
@@ -104,7 +104,7 @@ const Attendant = () => {
           {sectors.map(sector => (
             <div
               key={sector.id}
-              className="border-primary-default border-2 rounded p-2 bg-gray-200 min-w-1/6"
+              className="border-primary-default border-2 rounded p-2 bg-gray-200 w-1/3"
             >
               <h2 className="font-bold">{sector.name}:</h2>
               <table>

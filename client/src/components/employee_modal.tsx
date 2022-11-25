@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { register } from '../services/auth'
 import { Sector } from '../services/sector'
 import { Unit } from '../services/unit'
-import { createUser, PermitLevel } from '../services/user'
+import { PermitLevel } from '../services/user'
+import { validateCharLimit } from '../util/functions'
 import Modal from './modal'
 
 interface Props {
@@ -42,17 +43,39 @@ const EmployeeModal = ({ sectors, units, onClose }: Props) => {
   const handleCreateEmployee = async (e: React.MouseEvent) => {
     e.preventDefault()
     try {
-      await register({
-        name: employeeName,
-        register: employeeRegister,
-        password: employeePassword,
-        sectorId: employeeSectorId === 0 ? undefined : employeeSectorId,
-        unitId: employeeUnitId === 0 ? undefined : employeeUnitId,
-        permitLevel: employeePermitLevel,
-      })
-      alert('Funcionário criado com sucesso!')
-      navigate('/')
+      if (validateCharLimit(employeeName)) {
+        if (
+          employeePermitLevel === PermitLevel.ATTENDANT &&
+          employeeUnitId === 0
+        ) {
+          alert('Selecione uma unidade')
+          throw new Error('Selecione uma unidade')
+        }
+        console.log(employeePermitLevel, employeeUnitId, employeeSectorId)
+
+        if (
+          employeePermitLevel === PermitLevel.EMPLOYEE &&
+          (employeeUnitId === 0 || employeeSectorId === 0)
+        ) {
+          console.log(employeePermitLevel, employeeUnitId, employeeSectorId)
+
+          alert('Selecione um setor e uma unidade')
+          throw new Error('Selecione um setor')
+        }
+
+        await register({
+          name: employeeName,
+          register: employeeRegister,
+          password: employeePassword,
+          sectorId: employeeSectorId === 0 ? undefined : employeeSectorId,
+          unitId: employeeUnitId === 0 ? undefined : employeeUnitId,
+          permitLevel: employeePermitLevel,
+        })
+        alert('Funcionário criado com sucesso!')
+        navigate('/')
+      } else alert('O nome do funcionário deve conter no máximo 30 caracteres')
     } catch (error) {
+      alert('Funcionário inválido')
       console.error(error)
     }
   }

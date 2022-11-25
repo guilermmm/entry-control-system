@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { createVisitor } from '../services/visitor'
-import { validateCpf, validatePhone, validateRg } from '../util/functions'
+import {
+  validateCharLimit,
+  validateCpf,
+  validatePhone,
+  validateRg,
+} from '../util/functions'
 import Modal from './modal'
 
 const VisitorModal = ({ onClose }: { onClose: () => void }) => {
@@ -19,7 +24,8 @@ const VisitorModal = ({ onClose }: { onClose: () => void }) => {
       if (
         validateCpf(visitorCpf) &&
         validateRg(visitorRg) &&
-        validatePhone(visitorPhone)
+        validatePhone(visitorPhone) &&
+        validateCharLimit(visitorName, 50)
       ) {
         await createVisitor({
           cpf: visitorCpf,
@@ -31,7 +37,7 @@ const VisitorModal = ({ onClose }: { onClose: () => void }) => {
         alert('Visitante criado com sucesso!')
         navigate('/')
       } else {
-        alert('CPF, RG ou telefone inválido')
+        alert('Nome, CPF, RG ou telefone inválido')
       }
     } catch (error) {
       console.error(error)

@@ -52,3 +52,7 @@ export const getHour = (date: string) => {
 
   return hour
 }
+
+export const validateCharLimit = (value: string, max = 20) => {
+  return value.length <= max && value.length > 0
+}

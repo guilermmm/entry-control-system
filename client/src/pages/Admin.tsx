@@ -19,6 +19,7 @@ const Admin = () => {
   const [unitModal, setUnitModal] = useState(false)
   const [sectorModal, setSectorModal] = useState(false)
   const [employeeModal, setEmployeeModal] = useState(false)
+  const [editingUnit, setEditingUnit] = useState([] as Unit[])
 
   useEffect(() => {
     if (user) {
@@ -67,11 +68,11 @@ const Admin = () => {
         <h1 className="text-2xl font-bold border-b-2 border-primary-default">
           Unidades:
         </h1>
-        <div className="flex space-x-10 flex-wrap pt-4">
+        <div className="flex flex-wrap pt-6 gap-4 justify-center">
           {units.map(unit => (
             <div
               key={unit.id}
-              className="border-primary-default border-2 rounded p-2 bg-gray-200 mb-4"
+              className="w-1/6 border-primary-default border-2 rounded p-2 bg-gray-200 mb-4"
             >
               <h2 className="text-xl font-bold">{unit.name}:</h2>
               <h3>Atendentes:</h3>

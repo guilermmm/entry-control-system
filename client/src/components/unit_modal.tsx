@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { createUnit } from '../services/unit'
+import { validateCharLimit } from '../util/functions'
 import Modal from './modal'
 
 const UnitModal = ({ onClose }: { onClose: () => void }) => {
@@ -11,10 +12,12 @@ const UnitModal = ({ onClose }: { onClose: () => void }) => {
   const handleCreateUnit = async (event: React.MouseEvent) => {
     event.preventDefault()
     try {
-      await createUnit({ name: unitName })
+      if (validateCharLimit(unitName)) {
+        await createUnit({ name: unitName })
 
-      alert('Unidade criada com sucesso!')
-      navigate('/')
+        alert('Unidade criada com sucesso!')
+        navigate('/')
+      } else alert('Nome da unidade inválida')
     } catch (error) {
       console.error(error)
     }
