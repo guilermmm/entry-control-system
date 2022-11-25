@@ -8,6 +8,7 @@ import UnitModal from '../components/unit_modal'
 import { getSectors, Sector } from '../services/sector'
 import { getUnits, Unit } from '../services/unit'
 import { getUsers, PermitLevel, User } from '../services/user'
+import EditModal from '../components/edit_modal'
 
 const Admin = () => {
   const { token, user } = useAuth()
@@ -19,7 +20,7 @@ const Admin = () => {
   const [unitModal, setUnitModal] = useState(false)
   const [sectorModal, setSectorModal] = useState(false)
   const [employeeModal, setEmployeeModal] = useState(false)
-  const [editingUnit, setEditingUnit] = useState([] as Unit[])
+  const [editModal, setEditModal] = useState(false)
 
   useEffect(() => {
     if (user) {
@@ -63,6 +64,12 @@ const Admin = () => {
             onClick={() => setEmployeeModal(true)}
           >
             Novo Funcionário
+          </button>
+          <button
+            className="bg-primary-default rounded-md mt-2 mb-4 py-2 w-40 text-white"
+            onClick={() => setEditModal(true)}
+          >
+            Editar
           </button>
         </div>
         <h1 className="text-2xl font-bold border-b-2 border-primary-default">
@@ -123,6 +130,15 @@ const Admin = () => {
             onClose={() => setEmployeeModal(false)}
             units={units}
             sectors={sectors}
+          />
+        )}
+
+        {editModal && (
+          <EditModal
+            onClose={() => setEditModal(false)}
+            units={units}
+            sectors={sectors}
+            users={employees}
           />
         )}
       </div>
